@@ -1,0 +1,22 @@
+With quarterly_sales as
+    (
+    select iff(online_or_in_person=1,'Online','In-Person') online_or_in_person
+        ,'Q'||quarter(to_date(transaction_date,'DD/MM/YYYY HH24:MI:SS')) quarter
+        ,sum(value) sales
+    from TIL_PLAYGROUND.PREPPIN_DATA_INPUTS.PD2023_WK01 
+    where split_part(transaction_code,'-',1) = 'DSB'
+    group by online_or_in_person
+        ,quarter
+    )
+
+select 
+    tg.target
+    ,tg.quarter
+    ,tg.online_or_in_person
+    ,quarterly_sales.sales
+    ,quarterly_sales.sales-tg.target
+from TIL_PLAYGROUND.PREPPIN_DATA_INPUTS.PD2023_WK03_TARGETS tg
+unpivot (target for quarter in (Q1,Q2,Q3,Q4)) 
+inner join quarterly_sales 
+    on tg.quarter = quarterly_sales.quarter
+    and tg.online_or_in_person = quarterly_sales.online_or_in_person
