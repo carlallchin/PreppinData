@@ -1,0 +1,5 @@
+select "pupil last name"||', '||"pupil first name" PUPIL_NAME
+    ,"pupil last name"||', '||iff("Parental Contact"=1,"Parental Contact Name_1","Parental Contact Name_2") PARENTAL_CONTACT_NAME
+    ,iff("Parental Contact"=1,"Parental Contact Name_1","Parental Contact Name_2")||'.'||"pupil last name"||'@'||"Preferred Contact Employer"||'.com' PARENTAL_CONTACT_EMAIL
+    ,iff("Date of Birth" > to_date('01-09-2014', 'DD-MM-YYYY'),1,iff("Date of Birth" > to_date('01-09-2013', 'DD-MM-YYYY'),2,iff("Date of Birth" > to_date('01-09-2012', 'DD-MM-YYYY'),3,4))) Year
+from pd2022_wk01
