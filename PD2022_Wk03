@@ -1,0 +1,15 @@
+select round(avg(Score),1) Student_Avg_Score
+    ,Student_ID
+    ,sum(iff(Score >= 75,1,0)) Passed_Subjects
+    ,"gender" Gender
+from
+(
+select "Student ID" as Student_ID
+    ,Score
+    ,Subject
+from pd2022_wk03
+unpivot (Score for Subject in ("Maths","English", "Spanish","Science","Art", "History","Geography")) as wk03
+)
+left join pd2022_wk01 wk01
+    on Student_ID = wk01."id"
+Group by 2,4
