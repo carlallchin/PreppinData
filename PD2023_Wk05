@@ -1,0 +1,23 @@
+with CTE_1 as
+    (
+    select split_part(transaction_code,'-',1) Bank
+            ,monthname(to_date(transaction_date,'DD/MM/YYYY HH24:MI:SS')) TDAte
+            ,sum(value) Banks_Transaction_Total
+    from pd2023_wk01
+    group by Bank, TDate
+    )
+,CTE_2 as
+    (
+    select Bank
+    ,TDate
+    ,Banks_Transaction_Total
+    ,rank() over (partition by TDate order by Banks_Transaction_Total desc) Monthly_Rank
+    from CTE_1 
+    )
+select Bank
+    ,TDate Transaction_Date
+    ,Banks_Transaction_Total
+    ,Monthly_Rank
+    ,avg(Banks_Transaction_Total) over (partition by Monthly_Rank) Avg_Trans_Value_Per_Rank
+    ,avg(Monthly_Rank) over (partition by Bank) Avg_Rank_By_Bank
+from CTE_2
