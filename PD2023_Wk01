@@ -1,3 +1,4 @@
+//Snowflake SQL solution
 select split_part(transaction_code,'-',1) as "Bank"
    ,sum(value) as "Transaction Value"
 from TIL_PLAYGROUND.PREPPIN_DATA_INPUTS.PD2023_WK01
