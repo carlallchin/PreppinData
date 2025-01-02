@@ -1,3 +1,4 @@
+//Snowflake SQL solution
 select ID
     ,dateadd('day',joining_day-1,MonthDate) as True_Joining_Date
     ,Account_Type
