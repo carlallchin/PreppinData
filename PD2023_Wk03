@@ -1,3 +1,4 @@
+//Snowflake SQL solution
 With quarterly_sales as
     (
     select iff(online_or_in_person=1,'Online','In-Person') online_or_in_person
