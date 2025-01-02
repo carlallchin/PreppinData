@@ -1,3 +1,4 @@
+//Snowflake SQL solution
 select round(avg(Score),1) Student_Avg_Score
     ,Student_ID
     ,sum(iff(Score >= 75,1,0)) Passed_Subjects
