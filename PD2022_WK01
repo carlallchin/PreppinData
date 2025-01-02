@@ -1,3 +1,4 @@
+//Snowflake SQL solution
 select "pupil last name"||', '||"pupil first name" PUPIL_NAME
     ,"pupil last name"||', '||iff("Parental Contact"=1,"Parental Contact Name_1","Parental Contact Name_2") PARENTAL_CONTACT_NAME
     ,iff("Parental Contact"=1,"Parental Contact Name_1","Parental Contact Name_2")||'.'||"pupil last name"||'@'||"Preferred Contact Employer"||'.com' PARENTAL_CONTACT_EMAIL
